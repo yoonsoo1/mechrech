@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS Posts (
     carModel VARCHAR(30) NOT NULL,
     carMake VARCHAR(30) NOT NULL,
     carYear INT NOT NULL,
+    img VARCHAR(100),
     FOREIGN KEY(CompanyID) REFERENCES Companies(CompanyID),
     FOREIGN KEY (userID) REFERENCES Users(userID),
     PRIMARY KEY (postID)

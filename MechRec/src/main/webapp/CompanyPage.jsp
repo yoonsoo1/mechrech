@@ -11,18 +11,25 @@
 <body>
 	<main>
 		<section class="container">
-			<!-- comapny info -->
+			<!-- company info -->
+			
 			<div class="title1">
 				<h1 id="companyName"></h1>
 				<h2 id="rating"></h2>
-				<h3 id="phone">phone: </h3>
-				<h3 id="address">address: </h3>
-				<h3 id="services">services: </h3>
+				<h3 id="phone"></h3>
+				<h3 id="address"></h3>
+				<h3 id="services"></h3>
+			</div>
+			
+			<!--  map -->
+			<div class="map">
+				<h2>Map</h2>
+				<div class="underline"></div>
 			</div>
 			
 			<!-- reviews -->
 			<div class="title2">
-				<h2>customer reviews</h2>
+				<h2>Customer Reviews</h2>
 				<div class="underline"></div>
 			</div>
 			<article class="review">

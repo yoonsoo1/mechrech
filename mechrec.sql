@@ -14,13 +14,6 @@ CREATE TABLE IF NOT EXISTS Companies (
 	CompanyID INT UNIQUE NOT NULL,
     CompanyName VARCHAR(100) NOT NULL,
     rating DOUBLE,
-    url VARCHAR(200)
-);
-
-CREATE TABLE IF NOT EXISTS CompanyPhotos (
-	url VARCHAR(200),
-    CompanyID INT UNIQUE NOT NULL,
-    FOREIGN KEY(CompanyID) References Companies(CompanyID)
 );
 
 CREATE TABLE IF NOT EXISTS Posts (
@@ -33,6 +26,7 @@ CREATE TABLE IF NOT EXISTS Posts (
     carModel VARCHAR(30) NOT NULL,
     carMake VARCHAR(30) NOT NULL,
     carYear INT NOT NULL,
+    img VARCHAR(100),
     FOREIGN KEY(CompanyID) REFERENCES Companies(CompanyID),
     FOREIGN KEY (userID) REFERENCES Users(userID),
     PRIMARY KEY (postID)

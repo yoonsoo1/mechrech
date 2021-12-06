@@ -6,12 +6,22 @@
   padding: 60px;
   text-align: center;
   background: gray;
-  color: white;
+  color: rgb(59, 60, 57);
   font-size: 30px;
 }
 
 h2, h3 {
 	font-size: 25px;
+}
+
+.back-btn {
+	position: relative;
+	right: 40%;
+	transform: translateX(-50%);
+	top: 50%;
+	font-size: 12px;
+	background: black;
+	color: white;
 }
 
 /* review column */

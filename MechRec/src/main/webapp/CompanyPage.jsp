@@ -14,6 +14,7 @@
 			<!-- company info -->
 			
 			<div class="title1">
+				<button class="back-btn">back to main</button>
 				<h1 id="companyName"></h1>
 				<h2 id="rating"></h2>
 				<h3 id="phone"></h3>

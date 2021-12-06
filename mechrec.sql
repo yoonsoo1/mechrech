@@ -13,7 +13,9 @@ CREATE TABLE IF NOT EXISTS Users(
 CREATE TABLE IF NOT EXISTS Companies (
 	CompanyID INT UNIQUE NOT NULL,
     CompanyName VARCHAR(100) NOT NULL,
-    rating DOUBLE
+    rating DOUBLE,
+    phone VARCHAR(10),
+    address VARCHAR(100)
 );
 
 CREATE TABLE IF NOT EXISTS Posts (

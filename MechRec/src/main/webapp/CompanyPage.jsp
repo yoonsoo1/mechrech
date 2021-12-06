@@ -30,24 +30,21 @@
 				<div class="img-container">
 					<img src="companyImg/mech1.jpeg" id="revImg" alt=""> 
 				</div>
-				<h4 id="userID">John Jones</h4>
-				<p id="service">oil change</p>
+				<h4 id="userID"></h4>
+				<p id="service"></p>
 				<p id="info"></p>
 				<p id="postMessage">
-				Everti maiorum eam at, ei nulla consequat liberavisse sit. Nam an minim phaedrum, ne persecuti accommodare duo, 
-				id quo eros vidisse. Corrumpit disputationi at has, eam nibh mnesarchum scriptorem ex. Fabulas dolorem 
-				interesset nam ne, eam accusam pertinacia cu. Sea ei mutat dictas nonumes. Sed ea wisi euismod disputationi, 
-				summo labitur moderatius vim in.
 				</p>
 				<!--  prev next buttons -->
 				<div class="button-container">
 					<button class="prev-btn">prev</button>
 					<button class="next-btn">next</button>
+					<button class="seeMore">see more</button>
 				</div>
 			</article>
 		</section>
 	</main>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js""></script>
 	<script src="companyPage.js"></script>
 </body>
 </html>

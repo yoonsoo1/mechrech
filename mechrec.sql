@@ -51,3 +51,20 @@ CREATE TABLE IF NOT EXISTS Comments (
     FOREIGN KEY (postID) REFERENCES Posts(postID),
 	PRIMARY KEY (commentID)
 );
+
+SET GLOBAL local_infile = 'ON';
+
+UPDATE Companies c
+SET c.rating = (SELECT AVG(p.rating) FROM Posts p
+				WHERE c.companyID = p.companyID);
+                show global variables like 'local_infile';
+LOAD DATA LOCAL INFILE '/usr/local/mysql-8.0.27-macos11-x86_64/company.CSV' INTO TABLE Companies
+FIELDS TERMINATED BY ','  
+OPTIONALLY ENCLOSED BY '"' 
+LINES TERMINATED BY '\r\n';
+LOAD DATA LOCAL INFILE '/usr/local/mysql-8.0.27-macos11-x86_64/reviews.CSV' INTO TABLE Posts
+FIELDS TERMINATED BY ','  
+OPTIONALLY ENCLOSED BY '"' 
+LINES TERMINATED BY '\r\n';
+SELECT * From Companies;
+SELECT * FROM Posts;

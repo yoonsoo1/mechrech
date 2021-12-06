@@ -29,7 +29,7 @@ getJSON().then(function(result) {
 	rating.innerHTML = "Rating: " + company.rating;
 	phone.innerHTML = "Phone: "+ company.phone;
 	address.innerHTML = "Address: " + company.address;	
-	
+	showPerson();
 });
 
 	// select items for reviews

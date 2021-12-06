@@ -1,4 +1,5 @@
 // local company data
+/*
 const company = [
 	{
 		id: 1,
@@ -9,8 +10,13 @@ const company = [
 		services: [ "Suspension Services", "Auto Body Restoration", "Collision Repair", "Paint Repair"]
 	}
 ]
+*/
+const company;
+const reviews;
 
 // local reviews data
+
+/*
 const reviews = [
   {
     id: 1,
@@ -49,6 +55,18 @@ const reviews = [
       "Edison bulb put a bird on it humblebrag, marfa pok pok heirloom fashion axe cray stumptown venmo actually seitan. VHS farm-to-table schlitz, edison bulb pop-up 3 wolf moon tote bag street art shabby chic. ",
   },
 ];
+*/
+
+$.ajax
+({
+	url : 'compServlet.java', 
+	type : 'GET', // type of the HTTP request
+	dataType: 'json',
+	success : function(result){ 
+		company = result[0];
+		reviews = result[1];
+	}
+});
 
 // company data
 const companyName = document.getElementById("companyName");
@@ -66,6 +84,13 @@ rating.innerHTML += comp.rating;
 phone.innerHTML += comp.phone;
 address.innerHTML += comp.address;
 services.innerHTML += comp.services;
+
+function loadComp() {
+	const xhttp = new XMLHttpRequest();
+	xhttp.onload = function() {
+		document.getElementById("")
+	}
+}
 
 // select items for reviews
 const img = document.getElementById("revImg");

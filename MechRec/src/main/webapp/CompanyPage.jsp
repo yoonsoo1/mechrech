@@ -29,12 +29,12 @@
 			
 			<!-- reviews -->
 			<div class="title2">
-				<h2>Customer Reviews</h2>
+				<h2>Most Recent Customer Reviews</h2>
 				<div class="underline"></div>
 			</div>
 			<article class="review">
 				<div class="img-container">
-					<img src="companyImg/mechanic1.jpeg" id="revImg" alt=""> 
+					<img src="companyImg/mech1.jpeg" id="revImg" alt=""> 
 				</div>
 				<h4 id="author">John Jones</h4>
 				<p id="service">oil change</p>

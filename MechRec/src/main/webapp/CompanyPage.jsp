@@ -14,7 +14,12 @@
 			<!-- company info -->
 			
 			<div class="title1">
-				<button class="back-btn">back to main</button>
+				<div class="menubar">
+					<ul id="menu">
+						<li class="menuitem"><a href = "index.jsp">Back to Main</a></li>
+						<li class="menuitem"><a href ="Login.jsp">Log-In</a></li>
+					</ul>
+				</div>
 				<h1 id="companyName"></h1>
 				<h2 id="rating"></h2>
 				<h3 id="phone"></h3>

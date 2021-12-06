@@ -14,16 +14,39 @@ h2, h3 {
 	font-size: 25px;
 }
 
-.back-btn {
+.companyName {
 	position: relative;
-	right: 40%;
+	left: 50%;
 	transform: translateX(-50%);
-	top: 50%;
-	font-size: 12px;
-	background: black;
-	color: white;
 }
 
+.menuitem {
+	font-size: 14px;
+	background: black;
+	border: 1px solid #d4d4d4;
+	color: #ffffff;
+	padding: 2px;
+	cursor: pointer;
+	list-style-type: none;
+	position: relative;
+	 width: 100px;
+	 height: 30px;
+}
+.menuitem:hover {
+	background-color: #ffffff;
+}
+a {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+li a {
+    text-decoration: none;
+}
 /* review column */
 .review {
   float: left;

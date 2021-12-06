@@ -21,12 +21,6 @@
 				<h3 id="services"></h3>
 			</div>
 			
-			<!--  map -->
-			<div class="map">
-				<h2>Map</h2>
-				<div class="underline"></div>
-			</div>
-			
 			<!-- reviews -->
 			<div class="title2">
 				<h2>Most Recent Customer Reviews</h2>
@@ -36,9 +30,10 @@
 				<div class="img-container">
 					<img src="companyImg/mech1.jpeg" id="revImg" alt=""> 
 				</div>
-				<h4 id="author">John Jones</h4>
+				<h4 id="userID">John Jones</h4>
 				<p id="service">oil change</p>
-				<p id="info">
+				<p id="info"></p>
+				<p id="postMessage">
 				Everti maiorum eam at, ei nulla consequat liberavisse sit. Nam an minim phaedrum, ne persecuti accommodare duo, 
 				id quo eros vidisse. Corrumpit disputationi at has, eam nibh mnesarchum scriptorem ex. Fabulas dolorem 
 				interesset nam ne, eam accusam pertinacia cu. Sea ei mutat dictas nonumes. Sed ea wisi euismod disputationi, 
@@ -52,6 +47,7 @@
 			</article>
 		</section>
 	</main>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="companyPage.js"></script>
 </body>
 </html>

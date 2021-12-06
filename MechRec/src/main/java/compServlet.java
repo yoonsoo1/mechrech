@@ -18,27 +18,44 @@ public class compServlet extends HttpServlet{
 		response.setContentType("application/json");
 		// make company JSON
 		String compJSON = "";
-		int companyID = 0;
+		int companyID = 1;
 		String db = "jdbc:mysql://localhost:3306/mechrec";
 		String user = "root";
 		String pwd = "groot0107";
-		String sql = "SELECT c.companyName, c.rating,"
+		String sql = "SELECT c.companyName, c.rating, c.phone, c.address "
 				+ "FROM Companies c\n" 
-				+ "WHERE c.CompanyID = " + companyID;
+				+ "WHERE c.CompanyID = " + companyID + ";";
 		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		try (Connection conn = DriverManager.getConnection(db, user, pwd);
 				PreparedStatement ps = conn.prepareStatement(sql);)
 		{
 			ResultSet rs = ps.executeQuery();
-			String companyName = rs.getString("companyName");
-			Double rating = BigDecimal.valueOf(rs.getDouble("rating"))
-					.setScale(3, RoundingMode.HALF_UP)
-					.doubleValue();
-			Company cny = new Company(companyName, rating);
+			String companyName ="";
+			Double rating = (double) 0;
+			String phone = "";
+			String address = "";
+			if(rs.next())
+			{
+				companyName = rs.getString("companyName");
+				rating = BigDecimal.valueOf(rs.getDouble("rating"))
+						.setScale(3, RoundingMode.HALF_UP)
+						.doubleValue();
+				phone = rs.getString("phone");
+				address = rs.getString("address");
+			}
+			Company cny = new Company(companyName, rating, phone, address);
 			Gson comGson = new Gson();
 			compJSON = comGson.toJson(cny);
+			
 		}
 		catch (SQLException sqle) {
+			System.out.println("For Companies");
 			System.out.println ("SQLException: " + sqle.getMessage());
 			//out.println(sqle.getMessage());
 		}
@@ -48,23 +65,39 @@ public class compServlet extends HttpServlet{
 		db = "jdbc:mysql://localhost:3306/mechrec";
 		user = "root";
 		pwd = "groot0107";
-		sql = "SELECT p.userId, p.postMessage, p.postTimestamp"
-				+ ", p.rating, p.carModel, p.carMake, p.carYear, p.img"
-				+ ", s.serviceName, s.price "
-				+ "FROM Posts p Companies c Services s\n" 
-				+ "WHERE p.CompanyID = c.CompanyID\n"
-				+ "AND p.postID = s.postID\n"
-				+ "AND c.CompanyID = " + companyID + "\n"
+		sql = 	"SELECT p.userId, p.postMessage, p.postTimestamp, "
+				+ "p.rating, p.carModel, p.carMake, p.carYear, p.img "
+				+ "FROM Posts p, Companies c\n"
+				+ "WHERE p.CompanyID = " + companyID + "\n"
+				+ "ORDER BY p.postTimestamp DESC;";
+
+				/*
+				"SELECT p.userId, p.postMessage, p.postTimestamp"
+				+ ", p.rating, p.carModel, p.carMake, p.carYear, p.img "
+				//+ ", s.serviceName, s.price "
+				+ "FROM Posts p, Companies c\n"
+				//+ ", Services s\n" 
+				+ "WHERE c.CompanyID = " + companyID + "\n"
+				//+ "AND p.postID = s.postID\n"
 				+ "ORDER BY p.postTimestamp DESC";
+				*/
 
 		
 		ArrayList<Review> reviews = new ArrayList<Review>();
+		String revJSON = "";
 		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		try (Connection conn = DriverManager.getConnection(db, user, pwd);
 				PreparedStatement ps = conn.prepareStatement(sql);)
 		{
 			// save to JSON
 			ResultSet rs = ps.executeQuery();
+			rs.next();
 			for(int i = 0; i < 10; i++)
 			{
 				String userId = rs.getString("userId");
@@ -78,16 +111,22 @@ public class compServlet extends HttpServlet{
 				Review r = new Review(userId, postMessage,postTimestamp,
 						rating, carModel, carMake, carYear, img);
 				reviews.add(r);
+				if(!rs.next())
+				{
+					break;
+				}
 			}
 			Gson revGson = new Gson();
-			String revJSON = revGson.toJson(reviews);
+			revJSON = revGson.toJson(reviews);
 			String bothJson = "[" + compJSON + "," + revJSON + "]";
 			response.getWriter().write(bothJson);
 			//request.getRequestDispatcher("/Access.jsp").forward(request,  response);
 		}
 		catch (SQLException sqle) {
+			System.out.println("For Reviews");
 			System.out.println ("SQLException: " + sqle.getMessage());
 			//out.println(sqle.getMessage());
 		}
 	}
+	
 }

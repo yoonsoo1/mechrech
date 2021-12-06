@@ -11,92 +11,105 @@ const company = [
 	}
 ]
 */
-const company;
-const reviews;
 
 // local reviews data
 
 /*
 const reviews = [
   {
-    id: 1,
-    name: "susan smith",
-    service: "oil change",
-    img:
-      "companyImg/mech1.jpeg",
-    text:
-      "I'm baby meggings twee health goth +1. Bicycle rights tumeric chartreuse before they sold out chambray pop-up. Shaman humblebrag pickled coloring book salvia hoodie, cold-pressed four dollar toast everyday carry",
+    CompanyID: 1,
+    userID: "susan smith",
+    postMessage: "I'm baby meggings twee health goth +1. Bicycle rights tumeric chartreuse before they sold out chambray pop-up. Shaman humblebrag pickled coloring book salvia hoodie, cold-pressed four dollar toast everyday carry",
+	postTimestamp: "currTime",
+	rating: 4,
+	carModel: "Honda",
+	carMake: "Prius",
+	carYear: 2020,
+	img: "companyImg/mech1.jpeg",
   },
   {
-    id: 2,
-    name: "anna johnson",
-    service: "transmission fluid",
-    img:
-      "companyImg/mech2.jpg",
-    text:
+    CompanyID: 1,
+    userID: "anna johnson",
+	postMessage:
       "Helvetica artisan kinfolk thundercats lumbersexual blue bottle. Disrupt glossier gastropub deep v vice franzen hell of brooklyn twee enamel pin fashion axe.photo booth jean shorts artisan narwhal.",
+	postTimestamp: "currTime",
+    rating: 3,
+	carModel: "Honda",
+	carMake: "Prius",
+	carYear: 2020,  
+	img:
+      "companyImg/mech2.jpg",
   },
   {
-    id: 3,
-    name: "peter jones",
-    service: "wheel change",
-    img:
-      "companyImg/mech3.jpeg",
-    text:
+    CompanyID: 1,
+    userID: "peter jones",
+	postMessage:
       "Sriracha literally flexitarian irony, vape marfa unicorn. Glossier tattooed 8-bit, fixie waistcoat offal activated charcoal slow-carb marfa hell of pabst raclette post-ironic jianbing swag.",
+	postTimestamp: "currTime",
+    rating: 2,
+	carModel: "Honda",
+	carMake: "Prius",
+	carYear: 2020,  
+	img:
+      "companyImg/mech3.jpeg",
   },
   {
-    id: 4,
-    name: "bill anderson",
-    service: "alignment",
-    img:
-      "companyImg/mech4.jpeg",
-    text:
+    CompanyID: 1,
+    userID: "bill anderson",
+	postMessage:
       "Edison bulb put a bird on it humblebrag, marfa pok pok heirloom fashion axe cray stumptown venmo actually seitan. VHS farm-to-table schlitz, edison bulb pop-up 3 wolf moon tote bag street art shabby chic. ",
+	postTimestamp: "currTime",
+    rating: 3,
+	carModel: "Honda",
+	carMake: "Prius",
+	carYear: 2020,  
+	img:
+      "companyImg/mech4.jpeg",
   },
 ];
 */
 
+let company;
+let reviews;
+let jsonRec;
 $.ajax
 ({
-	url : 'compServlet.java', 
+	url : 'compServlet', 
 	type : 'GET', // type of the HTTP request
 	dataType: 'json',
 	success : function(result){ 
-		company = result[0];
-		reviews = result[1];
+		jsonRec = result;
+		console.log(jsonRec);
+	},
+	error : function() {
+		console.log("Couldn't read JSON");
 	}
 });
 
 // company data
+company = jsonRec[0];
+reviews = jsonRec[1];
+console.log(company);
+console.log(reviews);
 const companyName = document.getElementById("companyName");
 const rating = document.getElementById("rating");
 const phone = document.getElementById("phone");
 const address = document.getElementById("address");
-const services = document.getElementById("services");
 
-let currComp = 0;
+let currComp = 0; 
 
-const comp = company[currComp];
+companyName.innerHTML += company.companyName;
+rating.innerHTML += company.rating;
+phone.innerHTML += company.phone;
+address.innerHTML += company.address;
 
-companyName.innerHTML += comp.name;
-rating.innerHTML += comp.rating;
-phone.innerHTML += comp.phone;
-address.innerHTML += comp.address;
-services.innerHTML += comp.services;
-
-function loadComp() {
-	const xhttp = new XMLHttpRequest();
-	xhttp.onload = function() {
-		document.getElementById("")
-	}
-}
 
 // select items for reviews
 const img = document.getElementById("revImg");
-const author = document.getElementById("author");
-const service = document.getElementById("service");
+const userID = document.getElementById("userID");
+//const service = document.getElementById("service");
 const info = document.getElementById("info");
+const postMessage = document.getElementById("postMessage");
 
 const prevBtn = document.querySelector(".prev-btn");
 const nextBtn = document.querySelector(".next-btn");
@@ -114,9 +127,20 @@ window.addEventListener("DOMContentLoaded", function() {
 function showPerson() {
 	const item = reviews[currItem];
 	img.src = item.img;
-	author.textContent = item.name;
-	service.textContent = item.service;
-	info.textContent = item.text;	
+	userID.textContent = item.userID;
+	//service.textContent = item.service;
+	const background = info.innerHTML;
+	background += "Date: ";
+	background += item.postTimestamp;
+	background += "Rating: ";
+	background += item.rating;
+	background += "Car Model: ";
+	background += item.carModel;
+	background += "Car Make: ";
+	background += item.carMake;
+	background += "Car Year";
+	background += item.carYear;
+	postMessage.textContent = item.postMessage;
 }
 
 // show next person

@@ -28,8 +28,10 @@ getJSON().then(function(result) {
 	companyName.innerHTML += company.companyName;
 	rating.innerHTML = "Rating: " + company.rating;
 	phone.innerHTML = "Phone: "+ company.phone;
-	address.innerHTML = "Address: " + company.address;
+	address.innerHTML = "Address: " + company.address;	
 	
+});
+
 	// select items for reviews
 	const img = document.getElementById("revImg");
 	const userID = document.getElementById("userID");
@@ -39,9 +41,6 @@ getJSON().then(function(result) {
 	
 	const prevBtn = document.querySelector(".prev-btn");
 	const nextBtn = document.querySelector(".next-btn");
-	
-	
-});
 	// set starting item
 	let currItem = 0;
 	// load initial item

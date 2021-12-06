@@ -15,9 +15,9 @@
 			<div class="title1">
 				<h1 id="companyName"></h1>
 				<h2 id="rating"></h2>
-				<h3 id="phone"></h3>
-				<h3 id="address"></h3>
-				<h3 id="services"></h3>
+				<h3 id="phone">phone: </h3>
+				<h3 id="address">address: </h3>
+				<h3 id="services">services: </h3>
 			</div>
 			
 			<!-- reviews -->

@@ -52,3 +52,7 @@ CREATE TABLE IF NOT EXISTS Comments (
     FOREIGN KEY (postID) REFERENCES Posts(postID),
 	PRIMARY KEY (commentID)
 );
+
+UPDATE Companies c
+SET c.rating = (SELECT AVG(p.rating) FROM Posts p
+				WHERE c.companyID = p.companyID);

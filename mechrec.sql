@@ -5,8 +5,7 @@ use MechRec;
 CREATE TABLE IF NOT EXISTS Users(
 	email VARCHAR(100) UNIQUE NOT NULL,
     userID VARCHAR(20) NOT NULL,
-    hashPass VARBINARY(1024) NOT NULL,
-    saltHashPass VARBINARY(1024) NOT NULL,
+    hashPass VARCHAR(20) NOT NULL,
     PRIMARY KEY(userID)
 );
 

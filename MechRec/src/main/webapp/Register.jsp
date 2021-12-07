@@ -16,8 +16,7 @@
 		    <h1 id = "registration-id">Register</h1>
 		    <p>Please fill in this form to create an account.</p>
 		    <hr>
-		   
-		    <c:out value = "${errorMessageSign}"/>
+		  
 		    <label for="username"><b>Username</b></label>
 		    <input type="text" placeholder="Enter Username" name="username" id="username" required>
 		
@@ -25,11 +24,12 @@
 		    <input type="text" placeholder="Enter Email" name="email" id="email" required>
 		
 		    <label for="psw"><b>Password</b></label>
-		    <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+		    <input type="password" placeholder="Enter Password" name="password" id="password" required>
 		
 		    <hr>
 		    <button type="submit" class="registerbtn">Register</button>
 		  </div>
+		  <c:out value = "${errorMessageSign}"/>
 		
 		  <div class="container signin">
 		    <p>Already have an account? <a href="Login.jsp">Sign in</a>.</p>

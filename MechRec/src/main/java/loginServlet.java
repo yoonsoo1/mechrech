@@ -3,10 +3,16 @@ package rbharatr_CSCI201_RecMech;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.SecureRandom;
+import java.security.spec.KeySpec;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
- 
+
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -64,19 +70,27 @@ public class loginServlet extends HttpServlet {
         
         try {
             Connection con = DBConnection.initializeDataBase();
-            PreparedStatement st = con.prepareStatement("SELECT email,userID,hashPass,saltHashPass MechRec.Users WHERE (username=?)");
+            PreparedStatement st = con.prepareStatement("SELECT email,userID,hashPass,saltHashPass FROM Users WHERE (username=?)");
             st.setString(1, username);
             ResultSet rs = st.executeQuery();
-            String resUsername = "", resEmail = "", resHashPass = "", resSaltHashPass = "";
+            String resUsername = "", resEmail = "";
+            byte [] resSaltHashPass = new byte[16];
+            byte [] resHashPass = null;
             while(rs.next()) {
                 
                 resUsername = rs.getString("userId");
                 resEmail = rs.getString("email");
-                resHashPass = rs.getString("hashPass");
-                resSaltHashPass = rs.getString("saltHashPass");
+                resHashPass = rs.getBytes("hashPass");
+                resSaltHashPass = rs.getBytes("saltHashPass");
                 
             }
-            if(resHashPass.equals(password)) {
+            
+            //HASH PASSWORD
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            md.update(resSaltHashPass);
+            byte[] hashedPassword = md.digest(password.getBytes(StandardCharsets.UTF_8));
+            
+            if(resHashPass.equals(hashedPassword)) {
                 HttpSession sesh = request.getSession();
                 sesh.setAttribute("username", resUsername);
                 System.out.println("Session created for " + username);
@@ -94,7 +108,7 @@ public class loginServlet extends HttpServlet {
         }
         
         request.setAttribute("errorMessage", "logged in");
-        request.getRequestDispatcher("MainPage.jsp").forward(request, response);
+        request.getRequestDispatcher("index.jsp").forward(request, response);
         
         
     }

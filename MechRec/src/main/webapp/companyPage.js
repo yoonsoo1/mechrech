@@ -32,54 +32,54 @@ getJSON().then(function(result) {
 	showPerson();
 });
 
-	// select items for reviews
-	const img = document.getElementById("revImg");
-	const userID = document.getElementById("userID");
-	//const service = document.getElementById("service");
-	const info = document.getElementById("info");
-	const postMessage = document.getElementById("postMessage");
-	
-	const prevBtn = document.querySelector(".prev-btn");
-	const nextBtn = document.querySelector(".next-btn");
-	// set starting item
-	let currItem = 0;
-	// load initial item
-	window.addEventListener("DOMContentLoaded", function() {
-		showPerson();
-	});
-	
-	// show person based on item
-	
-	function showPerson() {
-		const item = reviews[currItem];
-		img.src = item.img;
-		userID.textContent = item.userID;
-		//service.textContent = item.service;
-		info.innerHTML = "Date: " + item.postTimestamp + "<br>"
-		+ "Rating: " + item.rating + "<br>"
-		+ "Car Model: " + item.carModel + "<br>"
-		+ "Car Make: " + item.carMake + "<br>"
-		+ "Car Year: " + item.carYear + "<br>";
-		postMessage.textContent = item.postMessage;
+// select items for reviews
+const img = document.getElementById("revImg");
+const userID = document.getElementById("userID");
+//const service = document.getElementById("service");
+const info = document.getElementById("info");
+const postMessage = document.getElementById("postMessage");
+
+const prevBtn = document.querySelector(".prev-btn");
+const nextBtn = document.querySelector(".next-btn");
+// set starting item
+let currItem = 0;
+// load initial item
+window.addEventListener("DOMContentLoaded", function() {
+	showPerson();
+});
+
+// show person based on item
+
+function showPerson() {
+	const item = reviews[currItem];
+	img.src = item.img;
+	userID.textContent = item.userID;
+	//service.textContent = item.service;
+	info.innerHTML = "Date: " + item.postTimestamp + "<br>"
+	+ "Rating: " + item.rating + "<br>"
+	+ "Car Model: " + item.carModel + "<br>"
+	+ "Car Make: " + item.carMake + "<br>"
+	+ "Car Year: " + item.carYear + "<br>";
+	postMessage.textContent = item.postMessage;
+}
+
+// show next person
+nextBtn.addEventListener("click", function() {
+	currItem++;
+	if(currItem > reviews.length-1)
+	{
+		currItem = 0;
 	}
-	
-	// show next person
-	nextBtn.addEventListener("click", function() {
-		currItem++;
-		if(currItem > reviews.length-1)
-		{
-			currItem = 0;
-		}
-		showPerson(currItem);
-	});
-	// show prev person
-	prevBtn.addEventListener("click", function() {
-		currItem--;
-		if(currItem < 0)
-		{
-			currItem = reviews.length-1;
-		}
-		showPerson(currItem);
-	});
+	showPerson(currItem);
+});
+// show prev person
+prevBtn.addEventListener("click", function() {
+	currItem--;
+	if(currItem < 0)
+	{
+		currItem = reviews.length-1;
+	}
+	showPerson(currItem);
+});
 
 

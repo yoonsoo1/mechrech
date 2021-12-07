@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS Posts (
     CompanyID INT NOT NULL,
     userID VARCHAR(20) NOT NULL,
     postMessage VARCHAR(255) NOT NULL,
-    postTimestamp DATETIME NOT NULL,
+    postTimestamp DATETIME NOT NULL DEFAULT(GETDATE()),
     rating DOUBLE NOT NULL,
     carModel VARCHAR(30) NOT NULL,
     carMake VARCHAR(30) NOT NULL,

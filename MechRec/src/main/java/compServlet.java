@@ -18,7 +18,11 @@ public class compServlet extends HttpServlet{
 		response.setContentType("application/json");
 		// make company JSON
 		String compJSON = "";
-		int companyID = 1;
+		HttpSession session = request.getSession(false);
+		String coID  = (String) session.getAttribute("companyID");
+		int companyID = Integer.parseInt(coID);
+		System.out.println("companyID: " + companyID);
+		//int companyID = Integer.parseInt();
 		String db = "jdbc:mysql://localhost:3306/mechrec";
 		String user = "root";
 		String pwd = "groot0107";
@@ -49,6 +53,10 @@ public class compServlet extends HttpServlet{
 				phone = rs.getString("phone");
 				address = rs.getString("address");
 			}
+			else
+			{
+				System.out.println("Company Not Found");
+			}
 			Company cny = new Company(companyName, rating, phone, address);
 			Gson comGson = new Gson();
 			compJSON = comGson.toJson(cny);
@@ -67,7 +75,7 @@ public class compServlet extends HttpServlet{
 		pwd = "groot0107";
 		sql = 	"SELECT p.userId, p.postMessage, p.postTimestamp, "
 				+ "p.rating, p.carModel, p.carMake, p.carYear, p.img "
-				+ "FROM Posts p, Companies c\n"
+				+ "FROM Posts p\n"
 				+ "WHERE p.CompanyID = " + companyID + "\n"
 				+ "ORDER BY p.postTimestamp DESC;";
 
@@ -97,23 +105,29 @@ public class compServlet extends HttpServlet{
 		{
 			// save to JSON
 			ResultSet rs = ps.executeQuery();
-			rs.next();
-			for(int i = 0; i < 10; i++)
+			if(!rs.next()) 
 			{
-				String userId = rs.getString("userId");
-				String postMessage = rs.getString("postMessage");
-				String postTimestamp = rs.getString("postTimestamp");
-				double rating = rs.getDouble("rating");
-				String carModel = rs.getString("carModel");
-				String carMake = rs.getString("carMake");
-				int carYear = rs.getInt("carYear");
-				String img = rs.getString("img");
-				Review r = new Review(userId, postMessage,postTimestamp,
-						rating, carModel, carMake, carYear, img);
-				reviews.add(r);
-				if(!rs.next())
+				System.out.println("No Posts for the company found");
+			}
+			else
+			{
+				for(int i = 0; i < 10; i++)
 				{
-					break;
+					String userId = rs.getString("userId");
+					String postMessage = rs.getString("postMessage");
+					String postTimestamp = rs.getString("postTimestamp");
+					double rating = rs.getDouble("rating");
+					String carModel = rs.getString("carModel");
+					String carMake = rs.getString("carMake");
+					int carYear = rs.getInt("carYear");
+					String img = rs.getString("img");
+					Review r = new Review(userId, postMessage,postTimestamp,
+							rating, carModel, carMake, carYear, img);
+					reviews.add(r);
+					if(!rs.next())
+					{
+						break;
+					}
 				}
 			}
 			Gson revGson = new Gson();
@@ -127,6 +141,11 @@ public class compServlet extends HttpServlet{
 			System.out.println ("SQLException: " + sqle.getMessage());
 			//out.println(sqle.getMessage());
 		}
+	}
+	protected void doPost(HttpServletRequest request, 
+		    HttpServletResponse response) throws IOException, ServletException
+	{		
+		doGet(request,response);
 	}
 	
 }

@@ -48,7 +48,7 @@
 				<div class="button-container">
 					<button class="prev-btn">prev</button>
 					<button class="next-btn">next</button>
-					<button class="seeMore">see more</button>
+					<button class="seeMore">add posts</button>
 				</div>
 			</article>
 		</section>

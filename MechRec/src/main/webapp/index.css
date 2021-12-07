@@ -1,0 +1,133 @@
+@charset "ISO-8859-1";
+
+* {
+	font-family: Algerian;
+}
+
+nav {
+	padding: 120px;
+	text-align: center;
+	background: gray;
+	color: rgb(59, 60, 57);
+	font-size: 30px;
+}
+
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    background-color: black;
+	color: white;
+	padding: 25px;
+	font-size: 25px;
+	border: none;
+	position: absolute;
+	left: 40%;
+	text-decoration: none;
+}
+
+a.logIn {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    background-color: black;
+	color: white;
+	padding: 25px;
+	font-size: 25px;
+	border: none;
+	position: absolute;
+	right: 19%;
+	text-decoration: none;
+}
+
+.logo {
+	position: absolute;
+	top: 50px;
+	left: 180px;
+	font-size: 35px;
+}
+
+.img-container {
+	position: absolute;
+	top: 50px;
+	left: 10 px;
+}
+
+.img-container img {
+	width: 150px;
+	height: 150px;
+}
+
+.dropbtn {
+  background-color: black;
+  color: white;
+  padding: 25px;
+  font-size: 25px;
+  border: none;
+}
+
+.dropdown {
+  position: absolute;
+  left: 50%;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  font-size: 20px;
+  background-color: #f1f1f1;
+  max-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content button {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content button:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #ff2600;}
+
+.dropbtn2 {
+  background-color: black;
+  color: white;
+  padding: 25px;
+  font-size: 25px;
+  border: none;
+}
+
+.dropdown2 {
+  position: absolute;
+  right: 28%;
+  display: inline-block;
+}
+
+.dropdown-content2 {
+  display: none;
+  position: absolute;
+  font-size: 20px;
+  background-color: #f1f1f1;
+  max-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content2 a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content2 a:hover {background-color: #ddd;}
+
+.dropdown2:hover .dropdown-content2 {display: block;}
+
+.dropdown2:hover .dropbtn2 {background-color: #ff2600;}

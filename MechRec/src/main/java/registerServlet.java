@@ -84,25 +84,26 @@ public class registerServlet extends HttpServlet {
         
         try {
             Connection con = DBConnection.initializeDataBase();
-            PreparedStatement st = con.prepareStatement("INSERT INTO Users(email,userID,HashPass,saltHashPass) VALUES (?,?,?,?);");
+            PreparedStatement st = con.prepareStatement("INSERT INTO Users(email,userID,HashPass) VALUES (?,?,?);");
             st.setString(1, email);
             st.setString(2, username);
+            /*STORE PASSWORD AS STRING*/
+            st.setString(3, password);
             
             
             // HASHING PASSWORD
             
             
-            SecureRandom random = new SecureRandom();
-            byte [] salt = new byte[16];
-            random.nextBytes(salt);
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            md.update(salt);
-            byte[] hashedPassword = md.digest(password.getBytes(StandardCharsets.UTF_8));
-            st.setBytes(3, hashedPassword);
-            st.setBytes(4, salt);
+//            SecureRandom random = new SecureRandom();
+//            byte [] salt = new byte[16];
+//            random.nextBytes(salt);
+//            MessageDigest md = MessageDigest.getInstance("SHA-512");
+//            md.update(salt);
+//            byte[] hashedPassword = md.digest(password.getBytes(StandardCharsets.UTF_8));
+//            st.setBytes(3, hashedPassword);
+//            st.setBytes(4, salt);
             
-            /*STORE PASSWORD AS STRING*/
-            //st.setString(3, password);
+            
             //st.setString4(4, "12341");
             
             st.executeUpdate();

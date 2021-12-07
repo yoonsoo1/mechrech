@@ -70,27 +70,24 @@ public class loginServlet extends HttpServlet {
         
         try {
             Connection con = DBConnection.initializeDataBase();
-            PreparedStatement st = con.prepareStatement("SELECT email,userID,hashPass,saltHashPass FROM Users WHERE (username=?)");
+            PreparedStatement st = con.prepareStatement("SELECT email,userID,hashPass FROM Users WHERE (username=?)");
             st.setString(1, username);
             ResultSet rs = st.executeQuery();
-            String resUsername = "", resEmail = "";
-            byte [] resSaltHashPass = new byte[16];
-            byte [] resHashPass = null;
+            String resUsername = "", resEmail = "", resHashPass = "";
             while(rs.next()) {
                 
                 resUsername = rs.getString("userId");
                 resEmail = rs.getString("email");
-                resHashPass = rs.getBytes("hashPass");
-                resSaltHashPass = rs.getBytes("saltHashPass");
+                resHashPass = rs.getString("hashPass");
                 
             }
             
-            //HASH PASSWORD
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            md.update(resSaltHashPass);
-            byte[] hashedPassword = md.digest(password.getBytes(StandardCharsets.UTF_8));
+//            //HASH PASSWORD
+//            MessageDigest md = MessageDigest.getInstance("SHA-512");
+//            md.update(resSaltHashPass);
+//            byte[] hashedPassword = md.digest(password.getBytes(StandardCharsets.UTF_8));
             
-            if(resHashPass.equals(hashedPassword)) {
+            if(resHashPass.equals(password)) {
                 HttpSession sesh = request.getSession();
                 sesh.setAttribute("username", resUsername);
                 System.out.println("Session created for " + username);

@@ -22,7 +22,7 @@
 						<div class="dropdown-content">
 						    <button class="btn1"></button>
 						    <button class="btn2"></button>
-						    <button class="btn2"></button>
+						    <button class="btn3"></button>
 						</div>
 					</div>	
 					<div class="dropdown2">
@@ -40,4 +40,5 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js""></script>
 	<script src="index.js"></script>
 </body>
+
 </html>

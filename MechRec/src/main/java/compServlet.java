@@ -15,10 +15,14 @@ public class compServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest request, 
     HttpServletResponse response) throws IOException
 	{
+		System.out.println("redirected");
 		response.setContentType("application/json");
 		// make company JSON
 		String compJSON = "";
-		int companyID = 1;
+		HttpSession session = request.getSession(false);
+		String coID  = (String) session.getAttribute("companyID");
+		int companyID = Integer.parseInt(coID);
+		//int companyID = Integer.parseInt();
 		String db = "jdbc:mysql://localhost:3306/mechrec";
 		String user = "root";
 		String pwd = "groot0107";
@@ -127,6 +131,11 @@ public class compServlet extends HttpServlet{
 			System.out.println ("SQLException: " + sqle.getMessage());
 			//out.println(sqle.getMessage());
 		}
+	}
+	protected void doPost(HttpServletRequest request, 
+		    HttpServletResponse response) throws IOException, ServletException
+	{		
+		doGet(request,response);
 	}
 	
 }

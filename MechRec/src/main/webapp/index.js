@@ -7,6 +7,7 @@ function getCompanies() {
 		dataType: 'json',
 		success : function(result) {
 			companyNames = result;
+			console.log(result);
 		},
 		error : function() {
 			console.log("Couldn't read JSON");
@@ -15,37 +16,39 @@ function getCompanies() {
 }
 
 getCompanies().then(function() {
-	const Co1 = document.getElementById("btn1");
-	const Co2 = document.getElementById("btn2");
-	const Co3 = document.getElementById("btn3");
+	const Co1 = document.querySelector(".btn1");
+	const Co2 = document.querySelector(".btn2");
+	const Co3 = document.querySelector(".btn3");
 	
 	Co1.innerHTML += companyNames[0].companyName;
 	Co2.innerHTML += companyNames[1].companyName;
 	Co3.innerHTML += companyNames[2].companyName;
 	
 	Co1.addEventListener("click", function() {
-		sendCompPg(companyNames[0].companyID);
+		return sendCompPg(companyNames[0].companyID);
 	});
 	Co2.addEventListener("click", function() {
-		sendCompPg(companyNames[1].companyID);
+		return sendCompPg(companyNames[1].companyID);
 	});
 	Co3.addEventListener("click", function() {
-		sendCompPg(companyNames[2].companyID);
+		return sendCompPg(companyNames[2].companyID);
 	});
-});
-
-function sendCompPg(companyID) {
+	function sendCompPg(num) {
 	return $.ajax({
 		url:'indexServlet',
 		type: 'POST',
-		data: companyID,
+		dataType: 'text',
+		data: "companyID=" + num,
 		success: function()
 		{
-			console.log("success");	
+			console.log("success " + num);	
+			window.location = 'CompanyPage.jsp';
 		},
 		error: function (errorThrown)
 	    {
 			console.log(errorThrown);
 	    }
 	});
-}
+	}
+	return;
+});

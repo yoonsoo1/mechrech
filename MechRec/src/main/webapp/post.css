@@ -1,0 +1,38 @@
+@charset "ISO-8859-1";
+
+.menuitem {
+	font-size: 14px;
+	background: black;
+	border: 1px solid #d4d4d4;
+	color: #ffffff;
+	padding: 2px;
+	cursor: pointer;
+	list-style-type: none;
+	position: relative;
+	 width: 100px;
+	 height: 30px;
+}
+.menuitem:hover {
+	background-color: #ffffff;
+}
+
+.formItemContainer{
+	
+	padding-bottom:0.75em;
+	text-align: center;
+}
+
+.formContainer{
+	
+	
+}
+
+#postForm{
+	border-style: solid;
+	border-color: grey;
+	
+}
+
+*{
+	font-family: 'Roboto', sans-serif;
+}

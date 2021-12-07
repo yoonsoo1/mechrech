@@ -75,7 +75,7 @@ public class compServlet extends HttpServlet{
 		pwd = "groot0107";
 		sql = 	"SELECT p.userId, p.postMessage, p.postTimestamp, "
 				+ "p.rating, p.carModel, p.carMake, p.carYear, p.img "
-				+ "FROM Posts p, Companies c\n"
+				+ "FROM Posts p\n"
 				+ "WHERE p.CompanyID = " + companyID + "\n"
 				+ "ORDER BY p.postTimestamp DESC;";
 

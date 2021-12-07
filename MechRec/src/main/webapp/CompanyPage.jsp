@@ -44,7 +44,7 @@
 				<p id="postMessage">
 				</p>
 				<!--  prev next buttons -->
-				<c:out></c:out>
+			
 				<div class="button-container">
 					<button class="prev-btn">prev</button>
 					<button class="next-btn">next</button>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
     
 <!DOCTYPE html>
 <html>
@@ -25,6 +26,7 @@
 				<h3 id="phone"></h3>
 				<h3 id="address"></h3>
 				<h3 id="services"></h3>
+				
 			</div>
 			
 			<!-- reviews -->
@@ -42,6 +44,7 @@
 				<p id="postMessage">
 				</p>
 				<!--  prev next buttons -->
+			
 				<div class="button-container">
 					<button class="prev-btn">prev</button>
 					<button class="next-btn">next</button>

@@ -69,11 +69,11 @@ public class indexServlet extends HttpServlet{
 	
 	protected void doPost(HttpServletRequest request, 
 		    HttpServletResponse response) throws IOException, ServletException
-	{	
+	{
 		String coID  = (String) request.getParameter("companyID");
 		HttpSession session = request.getSession();
 		session.setAttribute("companyID", coID);
 		response.sendRedirect(request.getContextPath() + "/Login.jsp");
-		return;
+		//request.getRequestDispatcher("compServlet").forward(request,response);
 	}
 }

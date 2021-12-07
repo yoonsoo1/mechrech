@@ -19,9 +19,9 @@
 				<div class="dropdown">
 					<button class="dropbtn">USC Mechs</button>
 					<div class="dropdown-content">
-					    <a href="#">Link 1</a>
-					    <a href="#">Link 2</a>
-					    <a href="#">Link 3</a>
+					    <button class="btn1"></button>
+					    <button class="btn2"></button>
+					    <button class="btn2"></button>
 					</div>
 				</div>	
 				<div class="dropdown2">

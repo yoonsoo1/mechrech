@@ -48,7 +48,7 @@
 				<div class="button-container">
 					<button class="prev-btn">prev</button>
 					<button class="next-btn">next</button>
-					<button class="seeMore">add posts</button>
+					<a href="post.jsp" class="addPosts">add posts</a>
 				</div>
 			</article>
 		</section>

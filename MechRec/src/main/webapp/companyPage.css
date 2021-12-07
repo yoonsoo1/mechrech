@@ -93,3 +93,15 @@ button {
   display: inline-block;
   font-size: 16px;
 }
+.button:hover {background-color: #ff2600;}
+
+a.addPosts {
+	background-color: gray;
+	border: none;
+	color: white;
+	padding: 12px 30px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+}

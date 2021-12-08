@@ -19,7 +19,7 @@ public class indexServlet extends HttpServlet{
 		String compJSON = "";
 		String db = "jdbc:mysql://localhost:3306/mechrec";
 		String user = "root";
-		String pwd = "groot0107";
+		String pwd = "root";
 		String sql = "SELECT c.companyName, c.companyID "
 				+ "FROM Companies c\n" 
 				+ "WHERE c.CompanyID = 1\n"

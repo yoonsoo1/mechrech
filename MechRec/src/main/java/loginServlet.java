@@ -1,4 +1,3 @@
-package rbharatr_CSCI201_RecMech;
 
 
 import java.io.IOException;
@@ -53,6 +52,7 @@ public class loginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         
+      
         //Check for 
         if(username == null || password == null) {
             request.setAttribute("errorMessage", "Fields cannot be blank");
@@ -62,15 +62,11 @@ public class loginServlet extends HttpServlet {
               request.setAttribute("errorMessage", "Invalid user or password");
               request.getRequestDispatcher("Login.jsp").forward(request, response);
               return;
-        } else if(!isUsernameValid(username)) {
-            request.setAttribute("errorMessage", "Invalid Username");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
-            return;
-        }
+        } 
         
         try {
             Connection con = DBConnection.initializeDataBase();
-            PreparedStatement st = con.prepareStatement("SELECT email,userID,hashPass FROM Users WHERE (username=?)");
+            PreparedStatement st = con.prepareStatement("SELECT email,userID,hashPass FROM Users WHERE (userID=?)");
             st.setString(1, username);
             ResultSet rs = st.executeQuery();
             String resUsername = "", resEmail = "", resHashPass = "";

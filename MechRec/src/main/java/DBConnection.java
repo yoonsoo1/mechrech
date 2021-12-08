@@ -1,4 +1,3 @@
-package rbharatr_CSCI201_RecMech;
 
 import java.sql.*;
 

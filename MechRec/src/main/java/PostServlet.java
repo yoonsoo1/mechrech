@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.ServletException;
@@ -56,8 +57,10 @@ public class PostServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession(false);
 		
-		if(session.getAttribute("userID") == null) {
+		if(session.getAttribute("username") == null) {
+			request.setAttribute("errorMessage", "Please log in to post");
 			request.getRequestDispatcher("Login.jsp").forward(request, response);
+			
 			return;
 		}
 	
@@ -96,6 +99,8 @@ public class PostServlet extends HttpServlet {
 		System.out.println(rating);
 		System.out.println(carYear);
 		System.out.println(carModel);
+		
+	
 		
 		if(!request.getParameterMap().containsKey("message") || !request.getParameterMap().containsKey("carModel") || !request.getParameterMap().containsKey("carMake") || !request.getParameterMap().containsKey("carYear") ) {
 			

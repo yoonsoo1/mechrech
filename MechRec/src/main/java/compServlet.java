@@ -25,7 +25,7 @@ public class compServlet extends HttpServlet{
 		//int companyID = Integer.parseInt();
 		String db = "jdbc:mysql://localhost:3306/mechrec";
 		String user = "root";
-		String pwd = "groot0107";
+		String pwd = "root";
 		String sql = "SELECT c.companyName, c.rating, c.phone, c.address "
 				+ "FROM Companies c\n" 
 				+ "WHERE c.CompanyID = " + companyID + ";";
@@ -72,7 +72,7 @@ public class compServlet extends HttpServlet{
 		// making review JSON
 		db = "jdbc:mysql://localhost:3306/mechrec";
 		user = "root";
-		pwd = "groot0107";
+		pwd = "root";
 		sql = 	"SELECT p.userId, p.postMessage, p.postTimestamp, "
 				+ "p.rating, p.carModel, p.carMake, p.carYear, p.img "
 				+ "FROM Posts p\n"

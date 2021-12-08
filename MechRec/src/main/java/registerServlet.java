@@ -88,7 +88,7 @@ public class registerServlet extends HttpServlet {
             st.setString(1, email);
             st.setString(2, username);
             /*STORE PASSWORD AS STRING*/
-            st.setString(3, password);
+            //st.setString(3, password);
             
             
             // HASHING PASSWORD
@@ -105,6 +105,13 @@ public class registerServlet extends HttpServlet {
             
             
             //st.setString4(4, "12341");
+            //Hashing password
+            byte [] salt = getSalt();
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(salt);
+            byte[] hashedPassword = md.digest(password.getBytes());
+            st.setBytes(3, hashedPassword);
+            st.setBytes(4, salt);
             
             st.executeUpdate();
             request.setAttribute("errorMessageSign", "Sign up succesful please log in");

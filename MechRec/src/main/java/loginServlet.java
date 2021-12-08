@@ -69,21 +69,28 @@ public class loginServlet extends HttpServlet {
             PreparedStatement st = con.prepareStatement("SELECT email,userID,hashPass FROM Users WHERE (userID=?)");
             st.setString(1, username);
             ResultSet rs = st.executeQuery();
-            String resUsername = "", resEmail = "", resHashPass = "";
+            String resUsername = "", resEmail = "";
+         			byte [] resSaltHashPass = null;
+			         byte [] resHashPass = null;
             while(rs.next()) {
                 
                 resUsername = rs.getString("userId");
                 resEmail = rs.getString("email");
-                resHashPass = rs.getString("hashPass");
+                resHashPass = rs.getBytes("hashPass");
+				            resSaltHashPass = rs.getBytes("saltHashPass");
                 
             }
+            
+         MessageDigest md = MessageDigest.getInstance("SHA-256");
+		      	md.update(resSaltHashPass);
+		      	byte[] hashedPassword = md.digest(password.getBytes());
             
 //            //HASH PASSWORD
 //            MessageDigest md = MessageDigest.getInstance("SHA-512");
 //            md.update(resSaltHashPass);
 //            byte[] hashedPassword = md.digest(password.getBytes(StandardCharsets.UTF_8));
             
-            if(resHashPass.equals(password)) {
+            if(resHashPass.equals(hashedPassword)) {
                 HttpSession sesh = request.getSession();
                 sesh.setAttribute("username", resUsername);
                 System.out.println("Session created for " + username);

@@ -84,7 +84,7 @@ VALUES (1, "University Tire & Auto Service", 4.6, "323-733-1236", "2908 Vermont 
 	(30, "Network Auto Body", 3.9, "323-232-8800", "3917 S Broadway, Los Angeles, CA 90037");
 	
 INSERT INTO Posts (CompanyID, userID, postMessage, rating, photo)
-Values (1, "David Andrew", "My girl's tires popped so we took the wheels and had the tires replaced. Can't remember names but the dude that helped us was nice and the job was well done.", 5.0,
+VALUES (1, "David Andrew", "My girl's tires popped so we took the wheels and had the tires replaced. Can't remember names but the dude that helped us was nice and the job was well done.", 5.0,
        LOAD_FILE('/MechRec/src/main/webapp/companyImg/Company1Image1.png')),
 	(1, "Kevin Cho", "Went in for tire checkup and repair on 8/13. Service was quick within 20 mins and each rep and mechanic was highly professional and friendly. Clean, uncluttered, and organized. I'm definitely going back if I ever need more services in the future.", 5.0,
 	LOAD_FILE('/MechRec/src/main/webapp/companyImg/Company1Image2.png')),

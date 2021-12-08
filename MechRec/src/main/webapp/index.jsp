@@ -14,6 +14,7 @@
 				<div class="nav-header">
 					<div class="img-container">
 						<img src="companyImg/logo.png" id="coLogo" alt ="">
+						
 						<div class="logo"><b>MechRec</b></div>
 					</div>				
 					<a href="index.jsp" class="button">Home</a>
@@ -35,8 +36,11 @@
 					<a href="Login.jsp" class="logIn">LogIn</a>			
 				</div>	
 			</div>
+			
+			
 		</nav>
 	</main>
+	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js""></script>
 	<script src="index.js"></script>
 </body>

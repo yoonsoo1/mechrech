@@ -113,7 +113,7 @@ public class compServlet extends HttpServlet{
 			{
 				for(int i = 0; i < 10; i++)
 				{
-					String userId = rs.getString("userId");
+					String userId = rs.getString("userID");
 					String postMessage = rs.getString("postMessage");
 					String postTimestamp = rs.getString("postTimestamp");
 					double rating = rs.getDouble("rating");

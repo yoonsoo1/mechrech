@@ -32,7 +32,7 @@
 </div>
 
 <div id="postContainer">
-	<form action="PostServlet" method="post" id="postForm" enctype='multipart/form-data'>
+	<form action="PostServlet" method="post" id="postForm" >
 	
 		
 		
@@ -62,8 +62,6 @@
 		</div>
 		
 		<div class="formItemContainer">
-		<label for="postPhoto ">Upload Photo:</label><br>
-		<input type="file" accept="image/*" id="postPhoto" name="file">
 		<input type="submit" value="Post">
 		</div>
 	

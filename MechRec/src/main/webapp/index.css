@@ -131,3 +131,33 @@ a.logIn {
 .dropdown2:hover .dropdown-content2 {display: block;}
 
 .dropdown2:hover .dropbtn2 {background-color: #ff2600;}
+
+.column-left {
+  float: left;
+  width: 33.333%;
+  font-size: 15px;
+  text-align: center;
+  font-weight: bold; 
+}
+
+.column-right {
+  float: right;
+  width: 33.333%;
+  font-size: 15px;
+  text-align: center;
+  font-weight: bold;
+  
+}
+
+.column-center {
+  display: inline-block;
+  width: 33.333%;
+  font-size: 15px;
+  text-align: center;
+  font-weight: bold;
+}
+
+p {
+	font-weight: normal;
+	font-size: 15px;
+}

@@ -3,6 +3,7 @@
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.KeySpec;
 import java.sql.Connection;
@@ -23,6 +24,11 @@ import javax.servlet.http.HttpServletResponseWrapper;
 @WebServlet("/registerServlet")
 public class registerServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    
+    private static final byte[] SALT = new byte[] { (byte)0xe0, 0x4f, (byte)0xd0,
+		    0x20, (byte)0xea, 0x3a, 0x69, 0x10, (byte)0xa2, (byte)0xd8, 0x08, 0x00, 0x2b,
+		    0x30, 0x30, (byte)0x9d };
+
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -84,34 +90,30 @@ public class registerServlet extends HttpServlet {
         
         try {
             Connection con = DBConnection.initializeDataBase();
-            PreparedStatement st = con.prepareStatement("INSERT INTO Users(email,userID,HashPass) VALUES (?,?,?);");
+            PreparedStatement st = con.prepareStatement("INSERT INTO Users(email,userID,hashPass) VALUES (?,?,?)");
             st.setString(1, email);
             st.setString(2, username);
             /*STORE PASSWORD AS STRING*/
-            //st.setString(3, password);
+            
             
             
             // HASHING PASSWORD
             
             
-//            SecureRandom random = new SecureRandom();
-//            byte [] salt = new byte[16];
-//            random.nextBytes(salt);
-//            MessageDigest md = MessageDigest.getInstance("SHA-512");
-//            md.update(salt);
-//            byte[] hashedPassword = md.digest(password.getBytes(StandardCharsets.UTF_8));
-//            st.setBytes(3, hashedPassword);
-//            st.setBytes(4, salt);
-            
-            
-            //st.setString4(4, "12341");
-            //Hashing password
-            byte [] salt = getSalt();
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(salt);
-            byte[] hashedPassword = md.digest(password.getBytes());
-            st.setBytes(3, hashedPassword);
-            st.setBytes(4, salt);
+            String hashedPassword = null;
+			try {
+	            MessageDigest md = MessageDigest.getInstance("SHA-256");
+	            md.update(SALT);
+	            byte[] bytes = md.digest(password.getBytes());
+	            StringBuilder sb = new StringBuilder();
+	            for (int i = 0; i < bytes.length; i++) {
+	                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+	            }
+	            hashedPassword = sb.toString();
+	        } catch (NoSuchAlgorithmException e) {
+	            e.printStackTrace();
+	        }
+			st.setString(3, hashedPassword);
             
             st.executeUpdate();
             request.setAttribute("errorMessageSign", "Sign up succesful please log in");

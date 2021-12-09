@@ -5,7 +5,7 @@ use MechRec;
 CREATE TABLE IF NOT EXISTS Users(
 	email VARCHAR(100) UNIQUE NOT NULL,
     userID VARCHAR(20) NOT NULL,
-    hashPass VARCHAR(20) NOT NULL,
+    hashPass VARCHAR(64) NOT NULL,
     PRIMARY KEY(userID)
 );
 
@@ -22,12 +22,12 @@ CREATE TABLE IF NOT EXISTS Posts (
     CompanyID INT NOT NULL,
     userID VARCHAR(20) NOT NULL,
     postMessage VARCHAR(255) NOT NULL,
-    postTimestamp DATETIME NOT NULL DEFAULT(GETDATE()),
+    postTimestamp timestamp NOT NULL DEFAULT current_timestamp,
     rating DOUBLE NOT NULL,
-    carModel VARCHAR(30) NOT NULL,
-    carMake VARCHAR(30) NOT NULL,
-    carYear INT NOT NULL,
-    photo mediumblob,
+    carModel VARCHAR(30) ,
+    carMake VARCHAR(30),
+    carYear INT ,
+    img mediumtext,
     FOREIGN KEY(CompanyID) REFERENCES Companies(CompanyID),
     PRIMARY KEY (postID)
 );
@@ -83,20 +83,37 @@ VALUES (1, "University Tire & Auto Service", 4.6, "323-733-1236", "2908 Vermont 
 	(29, "Mechanic Shop", 4.0, "310-962-8973", "1417 W Washington Blvd, Los Angeles, CA 90007"),
 	(30, "Network Auto Body", 3.9, "323-232-8800", "3917 S Broadway, Los Angeles, CA 90037");
 	
+INSERT INTO Posts (CompanyID, userID, postMessage, rating, img)
+VALUES (1, "David Andrew", "My girl's tires popped so we took the wheels and had the tires replaced. Can't remember names but the dude that helped us was nice and the job was well done.", 5.0,
+       "companyImg/Company1Image1.png"),
+	(1, "Kevin Cho", "Went in for tire checkup and repair on 8/13. Service was quick within 20 mins and each rep and mechanic was highly professional and friendly. Clean, uncluttered, and organized. I'm definitely going back if I ever need more services in the future.", 5.0,
+	"companyImg/Company1Image2.png"),
+	(1, "Elizabeth Quinn", "Needed a knob replacement on my manual transmission shift stick. The folks were able to make the replacement work and I was amazed at how quickly they got the job done. Super friendly, professional crew with integrity. Will definitely use them again!", 5.0,
+	"companyImg/Company1Image3.png"),
+	(1, "Morgan Lumpkins", "Excellent service, Diante, David, all of the employees are very professional and consistent in making sure your vehicle is serviced properly. I highly recommend University Tire & Auto Service. you will not be disappointed.", 5.0,
+	"companyImg/Company1Image4.png"),
+	(2, "Robert Donahoo", "Absolutely the best place for a Smog Test. Total testing is $50 cash, $52 if paying with a card. The process takes about 15 minutes to complete.  There’s no retests here so a word of caution. Best time to come out is mid-week in the morning.", 5.0,
+	"companyImg/Company2Image1.png"),
+	(2, "Launtie Jimenez", "Nice place to get your smog.", 4.0, "companyImg/Company2Image2.png"),
+	(2, "Sharon Smith", "USC smog is an excellent place to have a smog test and very honest  business man of integrity. I've been a return customer because of his courteous service.", 5.0,
+	"companyImg/Company2Image3.png"),
+	(2, "Tony Bell", "This little shop is a hidden gem. I've been coming here for over 10 yrs. The is never a long wait and the owner / mechanic is a great guy with a greater personality.", 5.0,
+	"companyImg/Company2Image4.png"),
+	(3, "Thelma Waters", "The guy tells me over the phone that it will be $100-$200 just to put the car on a diagnostic machine, but previously he told me it’d be $100-$300 just to check my car. Don’t trust this place because they’re rip offs and they overprice people.", 1.0,
+	"companyImg/Company3Image1.png"),
+	(3, "Jaime Alberto Ortiz", "Nothing to complain about it, Mr. Young did a great job replacing my car’s throttle and doing general service to it. Good job!", 5.0,
+	"companyImg/Company3Image2.png"),
+	(3, "Jesse Walker", "I called to get a quote and they were able to get me in that day. I was worried I was being upsold when I agreed to additional work on site, but they still came in at the quoted price.", 5.0,
+	"companyImg/Company3Image3.png"),
+	(3, "Daija Marrow", "I love this place. They're nice, fast, and reliable. The price is never too high and I'm glad I found them. Would highly recommend.", 5.0,
+	"companyImg/Company3Image4.png"),
+	(4, "Juan Jose", "Heard a weird noise so stopped by, turns out front bumper lose, no mechanical problems. Jose was very helpful in determining true issue. Definitely will come back if work needed.", 5.0,
+	"companyImg/Company4Image1.png"),
+	(4, "Jack Vega", "The guys here are always super cool and get the job done on time or earlier. Highly recommend this place! Ditch those weird neighborhood mechanics and just come here! That's what I did", 5.0,
+	"companyImg/Company4Image2.png"),
+	(4, "Sade Dickenson", "Very reliable place. Excellent customer service. The worker Eric is very professional and does an excellent job with customer service and getting the work done safely and correctly. Thank you for your service.", 5.0,
+	"companyImg/Company4Image3.png"),
+	(4, "Jose Noguera", "I brought my car for a regular oil change and to cfix what was causing what lights to flash, in 3 days they had my car ready, two days later am back with the same electric problem, not what I expected from a place like this.", 1.0,
+	"companyImg/Company4Image4.png");
 
-SET GLOBAL local_infile = 'ON';
 
-UPDATE Companies c
-SET c.rating = (SELECT AVG(p.rating) FROM Posts p
-				WHERE c.companyID = p.companyID);
-                show global variables like 'local_infile';
-LOAD DATA LOCAL INFILE '/usr/local/mysql-8.0.27-macos11-x86_64/company.CSV' INTO TABLE Companies
-FIELDS TERMINATED BY ','  
-OPTIONALLY ENCLOSED BY '"' 
-LINES TERMINATED BY '\r\n';
-LOAD DATA LOCAL INFILE '/usr/local/mysql-8.0.27-macos11-x86_64/reviews.CSV' INTO TABLE Posts
-FIELDS TERMINATED BY ','  
-OPTIONALLY ENCLOSED BY '"' 
-LINES TERMINATED BY '\r\n';
-SELECT * From Companies;
-SELECT * FROM Posts;

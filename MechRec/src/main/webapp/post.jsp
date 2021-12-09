@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
     
  <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+ <%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +21,16 @@
 				<div class="menubar">
 					<ul id="menu">
 						<li class="menuitem"><a href = "index.jsp">Back to Main</a></li>
-						<li class="menuitem"><a href ="Login.jsp">Log-In</a></li>
+					<c:choose>
+						<c:when test="${sessionScope.username != null}">
+							<li class="menuitem"><a href="Logout" class="logIn">Logout</a></li>
+						</c:when>
+						
+						<c:otherwise>
+							<li class="menuitem"><a href="Login.jsp" class="logIn">LogIn</a>	</li>
+						</c:otherwise>
+					</c:choose>
+					
 					</ul>
 				</div>
 				<h1 id="companyName"></h1>

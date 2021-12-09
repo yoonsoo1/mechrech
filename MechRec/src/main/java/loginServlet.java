@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.KeySpec;
 import java.sql.Connection;
@@ -25,6 +26,11 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/loginServlet")
 public class loginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    
+    private static final byte[] SALT = new byte[] { (byte)0xe0, 0x4f, (byte)0xd0,
+		    0x20, (byte)0xea, 0x3a, 0x69, 0x10, (byte)0xa2, (byte)0xd8, 0x08, 0x00, 0x2b,
+		    0x30, 0x30, (byte)0x9d };
+
  
     /**
      * Default constructor. 
@@ -70,26 +76,39 @@ public class loginServlet extends HttpServlet {
             st.setString(1, username);
             ResultSet rs = st.executeQuery();
             String resUsername = "", resEmail = "";
-         			byte [] resSaltHashPass = null;
-			         byte [] resHashPass = null;
+			String resHashPass = null;
             while(rs.next()) {
                 
-                resUsername = rs.getString("userId");
+                resUsername = rs.getString("userID");
                 resEmail = rs.getString("email");
-                resHashPass = rs.getBytes("hashPass");
-				            resSaltHashPass = rs.getBytes("saltHashPass");
+                resHashPass = rs.getString("hashPass");
+				           
                 
             }
             
-         MessageDigest md = MessageDigest.getInstance("SHA-256");
-		      	md.update(resSaltHashPass);
-		      	byte[] hashedPassword = md.digest(password.getBytes());
-            
-//            //HASH PASSWORD
-//            MessageDigest md = MessageDigest.getInstance("SHA-512");
-//            md.update(resSaltHashPass);
-//            byte[] hashedPassword = md.digest(password.getBytes(StandardCharsets.UTF_8));
-            
+            String hashedPassword = null;
+			try {
+	            MessageDigest md = MessageDigest.getInstance("SHA-256");
+	            md.update(SALT);
+	            byte[] bytes = md.digest(password.getBytes());
+	            StringBuilder sb = new StringBuilder();
+	            for (int i = 0; i < bytes.length; i++) {
+	                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+	            }
+	            hashedPassword = sb.toString();
+	        } catch (NoSuchAlgorithmException e) {
+	        	request.setAttribute("errorMessage", "Incorrect email and or password");
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+                return;
+	            
+	        }
+
+            if(resHashPass == null) {
+            	request.setAttribute("errorMessage", "Incorrect email and or password");
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+                return;
+            }
+			
             if(resHashPass.equals(hashedPassword)) {
                 HttpSession sesh = request.getSession();
                 sesh.setAttribute("username", resUsername);

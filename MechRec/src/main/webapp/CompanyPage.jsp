@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-    
+    <%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +18,15 @@
 				<div class="menubar">
 					<ul id="menu">
 						<li class="menuitem"><a href = "index.jsp">Back to Main</a></li>
-						<li class="menuitem"><a href ="Login.jsp">Log-In</a></li>
+						<c:choose>				
+							<c:when test="${sessionScope.username != null}">
+									<li class="menuitem"><a href="Logout">Logout</a></li>
+								</c:when>
+							<c:otherwise>
+								<li class="menuitem"><a href="Login.jsp" class="logIn">Log In</a></li>
+							</c:otherwise>
+						</c:choose>
+						
 					</ul>
 				</div>
 				<h1 id="companyName"></h1>
@@ -55,5 +63,6 @@
 	</main>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js""></script>
 	<script src="companyPage.js"></script>
+	
 </body>
 </html>

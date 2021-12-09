@@ -1,9 +1,13 @@
 
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Base64;
 import java.util.Map;
 import java.util.Random;
 
@@ -15,6 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
 
 
@@ -68,10 +75,21 @@ public class PostServlet extends HttpServlet {
 		String message = request.getParameter("message").trim();
 		String carModel = request.getParameter("carModel").trim();
 		String carMake = request.getParameter("carMake").trim();
-		String userID =  (String) session.getAttribute("userID");
-		int companyID = (int)session.getAttribute("companyID");
+		String userID =  (String) session.getAttribute("username");
+		int companyID = Integer.parseInt((String) session.getAttribute("companyID"));
 		double rating = 0;
 		
+		Path currentRelativePath = Paths.get("");
+		String s = currentRelativePath.toAbsolutePath().toString();
+		System.out.println("Current absolute path is: " + s);
+		
+		String canonicalPath = new File(".").getCanonicalPath();
+		System.out.println("Current directory path using canonical path method :- " + canonicalPath);
+		System.out.println(new File(".").getAbsoluteFile());
+
+
+		
+		System.out.println(companyID);
 		if(request.getParameter("rating") != null) {
 			try{
 			rating = Double.parseDouble(request.getParameter("rating"));
@@ -131,14 +149,25 @@ public class PostServlet extends HttpServlet {
 		}
 		
 		
-		Part filePart = null;
-		if(request.getPart("file") != null) {
-			filePart = request.getPart("file");
+	
+
+		Part part = request.getPart("file");
+		String encoded = null;
+		String filename = part.getSubmittedFileName();
+		String ext = filename.substring(filename.indexOf(".")+1);
+		if(part != null) {
+			byte[] bytes = IOUtils.toByteArray(part.getInputStream());
 			
+			encoded = Base64.getEncoder().encodeToString(bytes);
 		}
 		
+		String formattedBase64 ="data:image/";
+		formattedBase64 +=ext;
+		formattedBase64 +=";base64,";
+		formattedBase64 +=encoded;
+		
 		Connection connection = PostDao.initializeConnection();
-		String QUERY = "INSERT INTO Posts((SELECT CompanyID from Companies where CompanyID=?), userID, postMessage, rating, carModel, carMake, carYear, photo) values (?,?,?,?,?,?,?,?)"; 
+		String QUERY = "INSERT INTO Posts(CompanyID, userID, postMessage, rating, carModel, carMake, carYear,img) values ((SELECT CompanyID from Companies where CompanyID=?),?,?,?,?,?,?,?)"; 
 		PreparedStatement st;
 		try {
 			st = connection.prepareStatement(QUERY);
@@ -149,9 +178,7 @@ public class PostServlet extends HttpServlet {
 			st.setString(5, carModel);
 			st.setString(6, carMake);
 			st.setInt(7, carYear);
-			if(filePart!=null) {
-				st.setBlob(8, filePart.getInputStream());
-			}
+			st.setString(8, formattedBase64);
 			
 			st.executeUpdate();
 		}catch(SQLException e) {
@@ -161,9 +188,9 @@ public class PostServlet extends HttpServlet {
 			return;
 		}
 		
-		System.out.println("File uploaded");
+		System.out.println("Insert succesful");
 		
-		request.getRequestDispatcher("CompanyPage.jsp");
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 		
 		
 		

@@ -5,7 +5,7 @@ use MechRec;
 CREATE TABLE IF NOT EXISTS Users(
 	email VARCHAR(100) UNIQUE NOT NULL,
     userID VARCHAR(20) NOT NULL,
-    hashPass VARCHAR(20) NOT NULL,
+    hashPass VARCHAR(64) NOT NULL,
     PRIMARY KEY(userID)
 );
 
@@ -22,11 +22,11 @@ CREATE TABLE IF NOT EXISTS Posts (
     CompanyID INT NOT NULL,
     userID VARCHAR(20) NOT NULL,
     postMessage VARCHAR(255) NOT NULL,
-    postTimestamp DATETIME NOT NULL DEFAULT(GETDATE()),
+    postTimestamp timestamp NOT NULL DEFAULT current_timestamp,
     rating DOUBLE NOT NULL,
-    carModel VARCHAR(30) NOT NULL,
-    carMake VARCHAR(30) NOT NULL,
-    carYear INT NOT NULL,
+    carModel VARCHAR(30) ,
+    carMake VARCHAR(30),
+    carYear INT ,
     img mediumtext,
     FOREIGN KEY(CompanyID) REFERENCES Companies(CompanyID),
     PRIMARY KEY (postID)
@@ -83,9 +83,9 @@ VALUES (1, "University Tire & Auto Service", 4.6, "323-733-1236", "2908 Vermont 
 	(29, "Mechanic Shop", 4.0, "310-962-8973", "1417 W Washington Blvd, Los Angeles, CA 90007"),
 	(30, "Network Auto Body", 3.9, "323-232-8800", "3917 S Broadway, Los Angeles, CA 90037");
 	
-INSERT INTO Posts (CompanyID, userID, postMessage, rating, photo)
+INSERT INTO Posts (CompanyID, userID, postMessage, rating, img)
 VALUES (1, "David Andrew", "My girl's tires popped so we took the wheels and had the tires replaced. Can't remember names but the dude that helped us was nice and the job was well done.", 5.0,
-       LOAD_FILE('/MechRec/src/main/webapp/companyImg/Company1Image1.png')),
+       "companyImg/Company1Image1.png"),
 	(1, "Kevin Cho", "Went in for tire checkup and repair on 8/13. Service was quick within 20 mins and each rep and mechanic was highly professional and friendly. Clean, uncluttered, and organized. I'm definitely going back if I ever need more services in the future.", 5.0,
 	LOAD_FILE('/MechRec/src/main/webapp/companyImg/Company1Image2.png')),
 	(1, "Elizabeth Quinn", "Needed a knob replacement on my manual transmission shift stick. The folks were able to make the replacement work and I was amazed at how quickly they got the job done. Super friendly, professional crew with integrity. Will definitely use them again!", 5.0,
@@ -117,19 +117,3 @@ VALUES (1, "David Andrew", "My girl's tires popped so we took the wheels and had
 	LOAD_FILE('/MechRec/src/main/webapp/companyImg/Company4Image4.png'));
 
 
-SET GLOBAL local_infile = 'ON';
-
-UPDATE Companies c
-SET c.rating = (SELECT AVG(p.rating) FROM Posts p
-				WHERE c.companyID = p.companyID);
-                show global variables like 'local_infile';
-LOAD DATA LOCAL INFILE '/usr/local/mysql-8.0.27-macos11-x86_64/company.CSV' INTO TABLE Companies
-FIELDS TERMINATED BY ','  
-OPTIONALLY ENCLOSED BY '"' 
-LINES TERMINATED BY '\r\n';
-LOAD DATA LOCAL INFILE '/usr/local/mysql-8.0.27-macos11-x86_64/reviews.CSV' INTO TABLE Posts
-FIELDS TERMINATED BY ','  
-OPTIONALLY ENCLOSED BY '"' 
-LINES TERMINATED BY '\r\n';
-SELECT * From Companies;
-SELECT * FROM Posts;

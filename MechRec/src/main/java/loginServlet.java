@@ -97,10 +97,18 @@ public class loginServlet extends HttpServlet {
 	            }
 	            hashedPassword = sb.toString();
 	        } catch (NoSuchAlgorithmException e) {
-	            e.printStackTrace();
+	        	request.setAttribute("errorMessage", "Incorrect email and or password");
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+                return;
+	            
 	        }
 
-            
+            if(resHashPass == null) {
+            	request.setAttribute("errorMessage", "Incorrect email and or password");
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+                return;
+            }
+			
             if(resHashPass.equals(hashedPassword)) {
                 HttpSession sesh = request.getSession();
                 sesh.setAttribute("username", resUsername);

@@ -52,13 +52,36 @@
 			
 			
 		</nav>
+		<section class = "container">
+			<!-- static content -->
+			<div class="intro">
+				<h1>Find the Right Mechanic to Fit Your Needs!</h1>
+				<h2>Search through our database of reviews and
+				 information on all local USC mechanics.</h2>
+			</div>
+			<div class="row">
+			  <div class="column-left">Services
+			  	<p>Find services to fit your needs along with the corresponding pricing.</p>
+				  <img src="companyImg/mech1.jpeg" id="serImg" alt ="">
+			  </div>
+			  <div class="column-center">Mechanics
+			  	<p>Compare mechanics in order to find the best one for your car maintenance.</p>
+				  <img src="companyImg/mech4.jpeg" id="mecImg" alt ="">
+		  	  </div>
+			  <div class="column-right">Customer Reviews
+			  	<p>Utilize customer reviews that detail specific services, pricing,
+			  	 and overall opinion of each mechanic</p>
+				  <img src="companyImg/mech3.jpeg" id="cusImg" alt ="">
+			  </div>
+			</div>
+		</section>
+		
 		
 	</main>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js""></script>
 	<script src="index.js"></script>
 	
-
 </body>
 
 </html>

@@ -21,13 +21,13 @@
 				<div class="menubar">
 					<ul id="menu">
 						<li class="menuitem"><a href = "index.jsp">Back to Main</a></li>
-							<c:choose>
-						<c:when test="${sessionScope.email != null}">
-							<li><a href="Logout">Logout</a></li>
+					<c:choose>
+						<c:when test="${sessionScope.username != null}">
+							<li class="menuitem"><a href="Logout" class="logIn">Logout</a></li>
 						</c:when>
 						
 						<c:otherwise>
-							<li><a href="Login.jsp" class="logIn">LogIn</a>	</li>
+							<li class="menuitem"><a href="Login.jsp" class="logIn">LogIn</a>	</li>
 						</c:otherwise>
 					</c:choose>
 					

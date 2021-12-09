@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,17 +34,31 @@
 						    <p>Coming Soon!</p>
 						</div>
 					</div>
-					</div>				
-					<a href="Login.jsp" class="logIn">LogIn</a>			
+					</div>		
+					
+					
+						<c:choose>				
+							<c:when test="${sessionScope.username != null}">
+								<a href="Logout" class="logIn">Logout</a></li>
+							</c:when>
+							<c:otherwise>
+								<a href="Login.jsp" class="logIn">Log In</a>
+							</c:otherwise>
+						</c:choose>
+					
+					
 				</div>	
 			</div>
 			
 			
 		</nav>
+		
 	</main>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js""></script>
 	<script src="index.js"></script>
+	
+
 </body>
 
 </html>

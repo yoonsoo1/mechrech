@@ -148,6 +148,8 @@ public class PostServlet extends HttpServlet {
 		
 		
 	
+
+		
 		
 		Connection connection = PostDao.initializeConnection();
 		String QUERY = "INSERT INTO Posts(CompanyID, userID, postMessage, rating, carModel, carMake, carYear) values ((SELECT CompanyID from Companies where CompanyID=?),?,?,?,?,?,?)"; 

@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
     
  <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+ <%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +21,16 @@
 				<div class="menubar">
 					<ul id="menu">
 						<li class="menuitem"><a href = "index.jsp">Back to Main</a></li>
-						<li class="menuitem"><a href ="Login.jsp">Log-In</a></li>
+							<c:choose>
+						<c:when test="${sessionScope.email != null}">
+							<li><a href="Logout">Logout</a></li>
+						</c:when>
+						
+						<c:otherwise>
+							<li><a href="Login.jsp" class="logIn">LogIn</a>	</li>
+						</c:otherwise>
+					</c:choose>
+					
 					</ul>
 				</div>
 				<h1 id="companyName"></h1>
@@ -32,7 +42,7 @@
 </div>
 
 <div id="postContainer">
-	<form action="PostServlet" method="post" id="postForm" >
+	<form action="PostServlet" method="post" id="postForm" enctype='multipart/form-data'>
 	
 		
 		
@@ -62,6 +72,8 @@
 		</div>
 		
 		<div class="formItemContainer">
+		<label for="postPhoto ">Upload Photo:</label><br>
+		<input type="file" accept="image/*" id="postPhoto" name="file">
 		<input type="submit" value="Post">
 		</div>
 	

@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS Posts (
     carModel VARCHAR(30) NOT NULL,
     carMake VARCHAR(30) NOT NULL,
     carYear INT NOT NULL,
-    photo mediumblob,
+    img mediumtext,
     FOREIGN KEY(CompanyID) REFERENCES Companies(CompanyID),
     PRIMARY KEY (postID)
 );
